@@ -1,6 +1,6 @@
 package exaprac2;
-import clases.empleado;
 import java.util.Scanner;
+import javax.swing.JOptionPane; 
 /**
  *
  * @author Mirita_Guardado
@@ -13,61 +13,33 @@ public class exaprac2 {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Scanner leer = new Scanner(System.in);
-        empleado emp1 = new empleado();
-        empleado emp2 = new empleado();
-        empleado emp3 = new empleado();
-        
+        int Cant=0;
         double total=0;
-        double mayor=0;
+        String detalle= "***** DETALLE DE PLANILLA *****\n";
         
-        System.out.println("Ingrese nombre empleado");
-        emp1.setNombre(leer.next());
-        System.out.println("Horas trabajadas?");
-        emp1.setHorasTrabajadas(leer.nextInt());
-        System.out.println("Salario x Hora ?");
-        emp1.setSalXhora(leer.nextDouble());
-        emp1.calcularSalario();
-        System.out.println("Salario: " + emp1.getSalario());
+        Cant= Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de empleados a registrar:"));
+            
+        String nombre[] = new String [Cant];
+        int horas[] = new int [Cant];
+        double salario[] = new double [Cant];
+        double subtotal[] = new double [Cant];
+        double mayor = subtotal[0];
+        String empmay = nombre[0];
         
-        System.out.println("Ingrese nombre empleado");
-        emp2.setNombre(leer.next());
-        System.out.println("Horas trabajadas?");
-        emp2.setHorasTrabajadas(leer.nextInt());
-        System.out.println("Salario x Hora ?");
-        emp2.setSalXhora(leer.nextDouble());
-        emp2.calcularSalario();
-        System.out.println("Salario: " + emp2.getSalario());
+        for(int i=0; i<Cant; i++){
+            nombre[i]=JOptionPane.showInputDialog("Nombre del empleado " + (i+1)); 
+            horas[i]=Integer.parseInt(JOptionPane.showInputDialog("Horas Trabajadas: "));
+            salario[i]=Double.parseDouble(JOptionPane.showInputDialog("Salario X Hora: "));
+            total += horas[i] * salario[i];  
+            detalle += "Empleado: " + nombre[i] + " Horas: " + horas[i] + " Salario: $ " + salario[i] + "\n";  
         
-        System.out.println("Ingrese nombre empleado");
-        emp3.setNombre(leer.next());
-        System.out.println("Horas trabajadas?");
-        emp3.setHorasTrabajadas(leer.nextInt());
-        System.out.println("Salario x Hora ?");
-        emp3.setSalXhora(leer.nextDouble());
-        emp3.calcularSalario();
-        System.out.println("Salario: " + emp3.getSalario());
-        
-        total = emp1.getSalario()+emp2.getSalario() +
-                emp3.getSalario();
-        
-       if(emp1.getSalario() > mayor){
-            System.out.println("Salario mayor es de:"+
-                    emp1.getNombre());
-            mayor = emp1.getSalario();
-        }
-        if(emp2.getSalario() > mayor){
-            System.out.println("Salario mayor es de:"+
-                    emp2.getNombre());
-            mayor = emp2.getSalario();
-        }
-        if(emp3.getSalario() > mayor){
-            System.out.println("Salario mayor es de:"+
-                    emp3.getNombre());
-            mayor = emp3.getSalario();
-        }
-        System.out.println("Total planilla $" + total);   
-        
+            subtotal[i] = horas[i] * salario[i];
+            
+            if(subtotal[i]>mayor){
+                mayor=subtotal[i];
+                empmay=nombre[i];
+            }
+        }   
+        JOptionPane.showMessageDialog(null, detalle + "\n El total de la planilla es: $ " + total + "\n" + "El empleado con mayor salario es: " + empmay);
     }
-    
 }
